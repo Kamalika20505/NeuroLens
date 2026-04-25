@@ -5,12 +5,20 @@ Run with: streamlit run app.py
 
 import sys
 import os
+
+# Must be first — fixes module resolution on Streamlit Cloud
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, BASE_DIR)
+
 import numpy as np
 import streamlit as st
 
-# Fix imports for both local and Streamlit Cloud
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, BASE_DIR)
+from data.generate_eeg import generate_normal_eeg, generate_epileptic_eeg
+from utils.features import extract_all_features, interpret_features
+from utils.plots import (
+    plot_signal, plot_psd, plot_band_power_bars,
+    plot_comparison, plot_feature_radar,
+)
 
 # ── Page config ────────────────────────────────────────────────────────
 st.set_page_config(
@@ -151,21 +159,6 @@ st.markdown("""
   hr { border-color: #21262d; }
 </style>
 """, unsafe_allow_html=True)
-
-
-# ── Lazy imports (fast startup) ────────────────────────────────────────
-@st.cache_resource(show_spinner="Training model on synthetic EEG data...")
-def get_model():
-    from utils.model import load_or_train_model
-    return load_or_train_model()
-
-
-from data.generate_eeg import generate_normal_eeg, generate_epileptic_eeg
-from utils.features import extract_all_features, interpret_features
-from utils.plots import (
-    plot_signal, plot_psd, plot_band_power_bars,
-    plot_comparison, plot_feature_radar,
-)
 
 
 # ── Sidebar ────────────────────────────────────────────────────────────
