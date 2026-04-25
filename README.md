@@ -53,6 +53,3 @@ or the [Bonn EEG dataset](https://www.upf.edu/web/ntsa/downloads).
 
 The feature extraction and model code work with any 1D EEG array — just pass in `(signal, fs)`.
 
-## What to say about this project
-
-> "I built an EEG analysis tool that classifies epileptic patterns and visualizes signal features like band power and spike density to make predictions interpretable — not just accurate."
