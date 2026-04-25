@@ -8,7 +8,9 @@ import os
 import numpy as np
 import streamlit as st
 
-sys.path.insert(0, os.path.dirname(__file__))
+# Fix imports for both local and Streamlit Cloud
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, BASE_DIR)
 
 # ── Page config ────────────────────────────────────────────────────────
 st.set_page_config(
